@@ -1,20 +1,14 @@
-// 1. Add event handler to checkbox
-// 2. Modify the correct objects completed property -> toggleTodo
-// 3. Save und rerender
+'use strict'
 
 // Fetch existing todos from localStorage
-getSavedTodos = function() {
+const getSavedTodos = () => {
     const todosJSON = localStorage.getItem('todos')
 
-    if (todosJSON !== null) {
-        return JSON.parse(todosJSON)
-    } else {
-        return []
-    }
+    return todosJSON ? JSON.parse(todosJSON) : []
 }
 
 // Generate new item and add it to array
-const generateNewItem = function(e) {
+const generateNewItem = (e) => {
     const newItem = {
         id: uuidv4(),
         text: e.target.elements.text.value,
@@ -25,7 +19,7 @@ const generateNewItem = function(e) {
 }
 
 // Save todos to local storage
-const saveTodos = function(todos) {
+const saveTodos = (todos) => {
     localStorage.setItem('todos', JSON.stringify(todos))
 }
 
@@ -33,21 +27,17 @@ const saveTodos = function(todos) {
 const renderTodos = (todos, filters) => {
     const filteredTodos = generateFilteredTodos(todos, filters)
 
-    const incompleteTodos = filteredTodos.filter(function (todo) {
-        return !todo.completed
-    })
+    const incompleteTodos = filteredTodos.filter((todo) => !todo.completed)
 
     document.querySelector('#todo-list').innerHTML = ''
     document.querySelector('#todo-list').appendChild(generateSummaryDOM(incompleteTodos))
 
-    filteredTodos.forEach(function (todo) {
-        generateTodoDOM(todo)
-    })
+    filteredTodos.forEach((todo) => generateTodoDOM(todo))
 }
 
 // Get filtered todos
-const generateFilteredTodos = function (todos, filters) {
-    const filteredTodos = todos.filter(function (todo) {
+const generateFilteredTodos = (todos, filters) => {
+    const filteredTodos = todos.filter((todo) => {
         const searchTextMatch = todo.text.toLowerCase().includes(filters.searchText.toLowerCase())
         const hideCompletedMatch = !filters.hideCompleted || !todo.completed
         return searchTextMatch && hideCompletedMatch
@@ -56,17 +46,15 @@ const generateFilteredTodos = function (todos, filters) {
 }
 
 // Generate the DOM elements for list summary
-const generateSummaryDOM = function(incompleteTodos) {
+const generateSummaryDOM = (incompleteTodos) => {
     const summary = document.createElement('h2')
     summary.textContent = `You have ${incompleteTodos.length} todos left.`
     return summary
 }
 
 // Remove todo
-const removeTodos = function(id) {
-    const todoIndex = todos.findIndex(function(todo) {
-        return todo.id === id
-    })
+const removeTodos = (id) => {
+    const todoIndex = todos.findIndex((todo) => todo.id === id)
 
     if (todoIndex > -1) {
         todos.splice(todoIndex, 1)
@@ -76,19 +64,16 @@ const removeTodos = function(id) {
 }
 
 // Toggle todo completion when checkbox is clicked
-const toggleTodo = function(id) {
-    const todo = todos.find(function (todo) {
-        return todo.id === id
-    })
+const toggleTodo = (id) => {
+    const todo = todos.find((todo) => todo.id === id)
 
-    if (todo !== undefined) {
+    if (todo) {
         todo.completed = !todo.completed
     }
 }
 
-
 // Generate the DOM elements for an individual note
-const generateTodoDOM = function(todo) {
+const generateTodoDOM = (todo) => {
     const todoEl = document.createElement('div')
     const todoText = document.createElement('span')
     const checkbox = document.createElement('input')
@@ -98,7 +83,7 @@ const generateTodoDOM = function(todo) {
     checkbox.setAttribute('type', 'checkbox')
     checkbox.checked = todo.completed
     todoEl.appendChild(checkbox)
-    checkbox.addEventListener('click', function() {
+    checkbox.addEventListener('click', () => {
         toggleTodo(todo.id)
         saveTodos(todos)
         renderTodos(todos, filters)
@@ -110,9 +95,7 @@ const generateTodoDOM = function(todo) {
 
     // Setup todo button
     button.textContent = 'Remove'
-    button.addEventListener('click', function() {
-        removeTodos(todo.id)
-    })
+    button.addEventListener('click', () => removeTodos(todo.id))
     todoEl.appendChild(button)
 
     document.querySelector('#todo-list').appendChild(todoEl)
