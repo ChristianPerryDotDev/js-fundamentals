@@ -1,6 +1,5 @@
 // Prototypal Inheritence
 
-
 class Person {
     constructor(firstName, lastName, age, likes = []) {
         this.firstName = firstName
@@ -24,6 +23,8 @@ class Person {
     }
 }
 
+const myPerson = new Person('Bucket', 'McRogers', 42, ['buckets'])
+console.log(myPerson.getBio())
 
 const me = new Person('Andrew', 'Mead', 27, ['Teaching', 'Biking'])
 me.setName('Alexis Turner')
