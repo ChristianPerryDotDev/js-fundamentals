@@ -1,3 +1,10 @@
+// 1. Disable new guesses unless playing
+// 2. Setup a new method to get back a status message
+
+// Playing -> Guesses left: 3
+// Failed -> Nice try! The word was "Cat".
+// Finished -> Great work! You guessed the word.
+
 const Hangman = function (word, remainingGuesses) {
     this.word = word.toLowerCase().split('')
     this.remainingGuesses = remainingGuesses
@@ -6,7 +13,6 @@ const Hangman = function (word, remainingGuesses) {
 }
 
 Hangman.prototype.handleGuess = function (guess) {
-
     // convert guess to lowercase
     guess = guess.toLowerCase()
 
@@ -37,25 +43,8 @@ Hangman.prototype.getPuzzle = function () {
 }
 
 Hangman.prototype.getStatus = function () {
-    // SOLUTION USING EVERY:
+
     const finished = this.word.every((letter) => this.guessedLetters.includes(letter))
-
-    // SOLUTION USING FILTER:
-    // const lettersUnguessed = this.word.filter((letter) => {
-    //     return !this.guessedLetters.includes(letter)
-    // })
-    // const finished = (lettersUnguessed === 0)
-
-
-    // SOLUTION USING FOREACH:
-    // let finished = true
-    // this.word.forEach((letter) => {
-    //     if (this.guessedLetters.includes(letter)) {
-    //         // do nothing
-    //     } else {
-    //         finished = false
-    //     }
-    // })
 
     if (this.remainingGuesses === 0) {
         this.status = 'failed'
@@ -77,9 +66,18 @@ Hangman.prototype.getStatus = function () {
     //     this.status = 'failed'
     // }
 
-    console.log(`${this.status}`)
+    return this.displayStatus(`${this.status}`)
 }
 
-
+Hangman.prototype.displayStatus = function (message) {
+    switch (message) {
+        case 'playing':
+            return `Current guesses: ${this.remainingGuesses}`
+        case 'failed':
+            return `Nice try! The word was ${this.word.join()}`
+        case 'finished':
+            return `The winner is you`
+    }
+}
 
 
