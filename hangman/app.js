@@ -16,14 +16,18 @@ const doNothing = () => {}
 
 // CALLBACK ABSTRACTION
 
-getPuzzle((error, puzzle) => {
-    if (error) {
-        console.log(`Error: ${error}`)
-    } else {
-        console.log(puzzle)
-    }
-})
+// getPuzzle((error, puzzle) => {
+//     if (error) {
+//         console.log(`Error: ${error}`)
+//     } else {
+//         console.log(puzzle)
+//     }
+// })
 
+const puzzle = getPuzzleSync()
+console.log(puzzle)
+
+console.log('do something else')
 
 // Making an HTTP request
 
