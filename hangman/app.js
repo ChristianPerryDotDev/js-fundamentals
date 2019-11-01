@@ -16,22 +16,30 @@ const doNothing = () => {}
 
 // CALLBACK ABSTRACTION
 
-// getPuzzle((error, puzzle) => {
-//     if (error) {
-//         console.log(`Error: ${error}`)
-//     } else {
-//         console.log(puzzle)
-//     }
-// })
+getPuzzle("1", (error, puzzle) => {
+    if (error) {
+        console.log(`Error: ${error}`)
+    } else {
+        console.log(puzzle)
+    }
+})
 
-const puzzle = getPuzzleSync()
-console.log(puzzle)
+// 1. Create a new function for getting country details
+// 2. Call it with two arguments: country code, the callback function
+// 3. Make the http request and call the callback with country information
+// 4. Use the callback to print the country name
 
-console.log('do something else')
+getCountryDetails("MX", (error, country) => {
+    if (error) {
+        console.log(`Error: ${error}`)
+    } else {
+        console.log(`Country name: ${country.name}`)
+    }
+})
+
+
 
 // Making an HTTP request
-
-
 
 // const countryCode = "CA"
 // const countryRequest = new XMLHttpRequest()
