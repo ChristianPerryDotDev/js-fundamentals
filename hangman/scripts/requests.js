@@ -9,7 +9,6 @@ const getPuzzle = async (wordCount) => {
     }
 }
 
-
 const getCountry = async (countryCode) => {
     const response = await fetch('http://restcountries.eu/rest/v2/all')
 
@@ -20,7 +19,6 @@ const getCountry = async (countryCode) => {
         throw new Error('unable to fetch data')
     }
 }
-
 
 const getLocation = async () => {
     const response = await fetch('http://ipinfo.io/json?token=6326c04a13d828')

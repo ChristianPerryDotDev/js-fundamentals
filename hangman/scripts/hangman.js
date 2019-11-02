@@ -1,7 +1,3 @@
-// 1. Convert getStatusMessage() to a custom getter for "statusMessage"
-// 2. Convert getPuzzle() to a custom getter for "puzzle"
-// 3. Change usage in app.js
-
 class Hangman {
     constructor(word, remainingGuesses) {
         this.word = word.toLowerCase().split('')
@@ -28,7 +24,7 @@ class Hangman {
         if (isUnique) {
             this.guessedLetters.push(guess)
         }
-
+    
         // decrement remaining guesses if letter is not in puzzle
         if (isUnique && isBadGuess) {
             this.remainingGuesses--

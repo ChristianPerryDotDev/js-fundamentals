@@ -3,19 +3,19 @@ const guessesEl = document.querySelector('#guesses')
 const doNothing = () => {}
 let game1
 
-// puzzleEl.textContent = game1.puzzle //getPuzzle()
-// guessesEl.textContent = game1.statusMessage //getStatus()
-
 window.addEventListener('keypress', (e) => {
     const guess = String.fromCharCode(e.charCode)
     game1.status === 'playing' ? game1.handleGuess(guess) : doNothing()
-    puzzleEl.textContent = game1.puzzle
-    guessesEl.textContent = game1.statusMessage
+    render()
 })
 
 const render = () => {
-    puzzleEl.textContent = game1.puzzle
+    puzzleEl.innerHTML = ''
     guessesEl.textContent = game1.statusMessage
+
+    for (const c of game1.puzzle) {
+        puzzleEl.innerHTML += `<span>${c}</span>`
+    }
 }
 
 const startGame = async () => {
@@ -27,18 +27,4 @@ const startGame = async () => {
 document.querySelector('#reset').addEventListener('click', startGame)
 
 startGame()
-
-// CALLBACK ABSTRACTION
-
-// getPuzzle('1').then((puzzle) => {
-//     console.log(puzzle)
-// }).catch((err) => {
-//     console.log(`Error: ${err}`)
-// })
-
-// getCurrentCountry().then((country) => {
-//     console.log(country.name)
-// }).catch((err) => {
-//     console.log(`${err}`)
-// })
 

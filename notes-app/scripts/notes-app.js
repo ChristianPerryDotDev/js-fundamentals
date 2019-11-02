@@ -9,9 +9,19 @@ const filters = {
 
 renderNotes(notes, filters)
 
-document.querySelector("#create-note").addEventListener('click', (e) => {
-    createNote(notes)
+document.querySelector('#create-note').addEventListener('click', (e) => {
+    const id = uuidv4()
+    const timestamp = moment().valueOf()
+
+    notes.push({
+        id: id,
+        title: '',
+        body: '',
+        createdAt: timestamp,
+        updatedAt: timestamp
+    })
     saveNotes(notes)
+    location.assign(`/edit.html#${id}`)
 })
 
 document.querySelector('#search-text').addEventListener('input', (e) => {
@@ -30,12 +40,3 @@ window.addEventListener('storage', (e) => {
         renderNotes(notes, filters)
     }
 })
-
-const now = moment()
-
-now.minute(1)
-now.subtract(1, 'week').subtract(20, 'days')
-
-const nowTimestamp = now.valueOf()
-
-const bday = moment("09-12-1984", "MM-DD-YYYY")
